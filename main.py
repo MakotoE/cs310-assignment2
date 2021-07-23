@@ -11,6 +11,11 @@ DIRECTION_UP = 3
 
 
 def maze_solver(maze: List[List[int]]) -> List[Tuple[int, int]]:
+	"""
+	Finds the path that a light ray would take through a maze.
+	:param maze: 2D grid of cells, where 0 = empty cell, -1 = mirror at -45 degrees, 1 = mirror at 45 degrees
+	:return: The ordered coordinates that the light passed
+	"""
 	validate_maze(maze)
 
 	coordinate = (0, 0)
@@ -19,9 +24,9 @@ def maze_solver(maze: List[List[int]]) -> List[Tuple[int, int]]:
 	path: List[Tuple[int, int]] = []
 
 	while True:
-		if 0 <= coordinate[1] < len(maze) and 0 <= coordinate[0] < len(maze[0]):
+		if 0 <= coordinate[0] < len(maze) and 0 <= coordinate[1] < len(maze[0]):
 			path.append(coordinate)
-			direction = next_direction(direction, maze[coordinate[1]][coordinate[0]])
+			direction = next_direction(direction, maze[coordinate[0]][coordinate[1]])
 			coordinate = next_coordinate(coordinate, direction)
 		else:
 			return path
@@ -67,12 +72,12 @@ def next_direction(current_direction: int, cell: int) -> int:
 
 def next_coordinate(coordinate: Tuple[int, int], direction: int) -> Tuple[int, int]:
 	if direction == DIRECTION_RIGHT:
-		return coordinate[0] + 1, coordinate[1]
-	elif direction == DIRECTION_DOWN:
 		return coordinate[0], coordinate[1] + 1
+	elif direction == DIRECTION_DOWN:
+		return coordinate[0] + 1, coordinate[1]
 	elif direction == DIRECTION_LEFT:
-		return coordinate[0] - 1, coordinate[1]
-	elif direction == DIRECTION_UP:
 		return coordinate[0], coordinate[1] - 1
+	elif direction == DIRECTION_UP:
+		return coordinate[0] - 1, coordinate[1]
 	else:
 		assert False
