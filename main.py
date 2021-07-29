@@ -23,13 +23,12 @@ def maze_solver(maze: List[List[int]]) -> List[Tuple[int, int]]:
 
 	path: List[Tuple[int, int]] = []
 
-	while True:
-		if 0 <= coordinate[0] < len(maze) and 0 <= coordinate[1] < len(maze[0]):
-			path.append(coordinate)
-			direction = next_direction(direction, maze[coordinate[0]][coordinate[1]])
-			coordinate = next_coordinate(coordinate, direction)
-		else:
-			return path
+	while 0 <= coordinate[0] < len(maze) and 0 <= coordinate[1] < len(maze[0]):
+		path.append(coordinate)
+		direction = next_direction(direction, maze[coordinate[0]][coordinate[1]])
+		coordinate = next_coordinate(coordinate, direction)
+
+	return path
 
 
 def validate_maze(maze: List[List[int]]):
